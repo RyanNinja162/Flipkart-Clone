@@ -1,4 +1,4 @@
-import { currencySymbols } from '../config/magento';
+import { currencySymbols } from '../config/magento-sample';
 
 export function finalPrice(data, price) {
   let specialPrice = price;

@@ -10,7 +10,7 @@ export default {
   WINDOW_WIDTH: screenWidth,
   WINDOW_HEIGHT: screenHeight,
   headerButtonSize: 23,
-  borderRadius: 2,
+  borderRadius: 8,
   defaultButtonWidth: screenWidth * 0.7,
   defaultButtonHeight: 40,
   defaultInputBoxHeight: 40,

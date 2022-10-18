@@ -6,25 +6,30 @@ import Swiper from 'react-native-swiper';
 import { Text } from '../common';
 import { magento } from '../../magento';
 import { ThemeContext } from '../../theme';
+import Cart from "../../../resources/icons/shopping-cart.png"
 
 const HomeSlider = ({ slider, style }) => {
   const theme = useContext(ThemeContext);
 
+  const data = [1, 2, 3, 4]
+
   const renderMediaItems = () =>
-    slider.map((slide, index) => (
+    data.map((slide, index) => (
       <View key={index} style={styles.slide}>
         <FastImage
           style={styles.imageStyle(theme)}
-          resizeMode="cover"
-          source={{ uri: magento.getMediaUrl() + slide.image }}
+          // resizeMode="cover"
+          resizeMode={FastImage.resizeMode.cover}
+          // source={{ uri: magento.getMediaUrl() + slide.image }}
+          source={{ uri: "https://unsplash.it/400/400?image=1" }}
         />
-        <Text style={styles.slideTitle(theme)}>{slide.title}</Text>
+        <Text style={styles.slideTitle(theme)}>hello world</Text>
       </View>
     ));
 
   return (
     <View style={[styles.imageContainer(theme), style]}>
-      <Swiper showsPagination={false} pagingEnabled autoplay={false}>
+      <Swiper showsPagination={true} pagingEnabled autoplay={true} activeDot={<View style={{ backgroundColor: "#fff", width: 8, height: 8, borderRadius: 4 }} />}>
         {renderMediaItems()}
       </Swiper>
     </View>

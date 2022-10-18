@@ -112,16 +112,16 @@ class Cart extends Component {
   renderEmptyCart = () => {
     const theme = this.context;
     const { navigate } = this.props.navigation;
-    const { containerStyle, totals, buttonTextStyle } = styles;
+    const { containerStyle, totals, buttonTextStyle, shopNow } = styles;
 
     return (
       <View style={containerStyle(theme)}>
         <Text type="heading" style={totals(theme)}>
           {translate('cart.emptyMessage')}
         </Text>
-        <TouchableOpacity onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)}>
+        <TouchableOpacity onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)} style={shopNow(theme)}>
           <Text type="heading" bold style={buttonTextStyle(theme)}>
-            {translate('common.continueShopping')}
+            {translate('common.shopNow')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -196,14 +196,18 @@ const styles = StyleSheet.create({
   totals: theme => ({
     paddingTop: theme.spacing.small,
   }),
+  shopNow: theme => ({
+    backgroundColor: theme.colors.secondary,
+    borderRadius: theme.dimens.borderRadius
+  }),
   totalPriceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   buttonTextStyle: theme => ({
-    padding: theme.spacing.large,
+    padding: theme.spacing.small,
     top: 0,
-    color: theme.colors.secondary,
+    color: theme.colors.primary,
   }),
   footer: theme => ({
     padding: theme.spacing.large,

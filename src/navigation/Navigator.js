@@ -4,17 +4,20 @@ import {
   createStackNavigator,
   StackViewTransitionConfigs,
 } from 'react-navigation-stack';
+import { View, Text } from "react-native";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { DrawerActions } from 'react-navigation-drawer';
 
 import { Icon } from 'react-native-elements';
+import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 import Category from '../components/catalog/Category';
 import CategoryTree from '../components/catalog/CategoryTree';
 import Cart from '../components/cart/Cart';
 import Checkout from '../components/checkout/Checkout';
 import Login from '../components/account/Login';
+import CategoryScreen from '../components/category/CategoryScreen';
 import Signin from '../components/account/Signin';
 import Account from '../components/account/Account';
 import AuthLoading from '../components/account/AuthLoading';
@@ -55,6 +58,15 @@ const HomeStack = createStackNavigator(
   },
   {
     initialRouteName: routes.NAVIGATION_HOME_SCREEN_PATH,
+    defaultNavigationOptions: defaultHeader,
+  },
+);
+
+const CategoryStack = createStackNavigator(
+  {
+    [routes.NAVIGATION_CATEGORIES_PATH]: CategoryScreen,
+  },
+  {
     defaultNavigationOptions: defaultHeader,
   },
 );
@@ -113,15 +125,32 @@ const MainAppNavigator = createBottomTabNavigator(
       screen: HomeStack,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-home" type="ionicon" color={tintColor} />
+          <View>
+            <Icon name="md-home" type="ionicon" color={tintColor} />
+            <Text style={{ color: tintColor, fontSize: 10 }}>Home</Text>
+          </View>
         ),
+      }),
+    },
+    [routes.NAVIGATION_CATEGORIES_PATH]: {
+      screen: CategoryStack,
+      navigationOptions: () => ({
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <Icon name="md-person" type="ionicon" color={tintColor} />
+            <Text style={{ color: tintColor, fontSize: 10 }}>Categories</Text>
+          </View>
+        )
       }),
     },
     [routes.NAVIGATION_SEARCH_SCREEN_PATH]: {
       screen: SearchStack,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-search" type="ionicon" color={tintColor} />
+          <View>
+            <Icon name="bell" type="material-community" color={tintColor} />
+            <Text style={{ color: tintColor, fontSize: 10 }}>Notifications</Text>
+          </View>
         ),
       }),
     },
@@ -129,14 +158,22 @@ const MainAppNavigator = createBottomTabNavigator(
       screen: AccountSwitch,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="md-person" type="ionicon" color={tintColor} />
+          <View>
+            <Icon name="md-person" type="ionicon" color={tintColor} />
+            <Text style={{ color: tintColor, fontSize: 10 }}>User</Text>
+          </View>
         ),
       }),
     },
     [routes.NAVIGATION_CART_PATH]: {
       screen: CartStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <CartBadge color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => (
+          <View>
+            <CartBadge color={tintColor} />
+            <Text style={{ color: tintColor, fontSize: 10 }}>Cart</Text>
+          </View>
+        )
       }),
     },
   },

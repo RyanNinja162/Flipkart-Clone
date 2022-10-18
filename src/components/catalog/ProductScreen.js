@@ -29,7 +29,7 @@ import { useProductDescription } from '../../hooks/useProductDescription';
 import { RelatedProducts } from './RelatedProducts';
 import { ProductReviews } from './reviews/ProductReviews';
 import { ReviewFormContainer } from './reviews/ReviewFormContainer';
-import { magentoOptions } from '../../config/magento';
+import { magentoOptions } from '../../config/magento-sample';
 
 export const ProductScreen = props => {
   const { cart, currencyRate, currencySymbol, customer, current } = useSelector(

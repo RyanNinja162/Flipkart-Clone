@@ -20,7 +20,8 @@
     "order": "Order",
     "email": "Email",
     "password": "Password",
-    "continueShopping": "Continue Shopping",
+    "continueShopping": "Shop Now",
+    "shopNow": "Shop Now",
     "min": "Min.",
     "max": "Max.",
     "region": "Region",
@@ -95,7 +96,7 @@
     "addToCartButton": "Add to Cart",
     "productDetailLabel": "Product Details",
     "noProductDetail": "No description available!",
-    "relatedProductsTitle":"You may also like"
+    "relatedProductsTitle": "You may also like"
   },
   "checkout": {
     "title": "Checkout",

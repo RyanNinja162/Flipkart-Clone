@@ -90,7 +90,7 @@ class HomeScreen extends Component {
           />
         }>
         <HomeSlider slider={this.props.slider} />
-        {this.renderFeatured()}
+        {/* {this.renderFeatured()} */}
       </ScrollView>
     );
   }
