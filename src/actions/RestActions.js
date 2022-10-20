@@ -190,12 +190,16 @@ export const getCategoryTree = refreshing => async dispatch => {
     dispatch({ type: MAGENTO_UPDATE_REFRESHING_CATEGORY_TREE, payload: true });
   }
 
+  console.log("inside getCategoryTree")
+
   try {
+    console.log("inside try")
     const data = await magento.admin.getCategoriesTree();
     dispatch({ type: MAGENTO_GET_CATEGORY_TREE, payload: data });
     dispatch({ type: MAGENTO_UPDATE_REFRESHING_CATEGORY_TREE, payload: false });
   } catch (error) {
-    logError(error);
+    console.log("inside catch")
+    logError("error", error);
   }
 };
 

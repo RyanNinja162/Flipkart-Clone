@@ -14,7 +14,9 @@ const CategoryTree = ({
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
+    console.log("hello")
     _getCategoryTree();
+    console.log("world")
   }, [_getCategoryTree]);
 
   const onRefresh = () => {

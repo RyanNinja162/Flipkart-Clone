@@ -62,7 +62,7 @@ export const auth = (username, password) => async dispatch => {
       dispatch({ type: MAGENTO_LOGIN_SUCCESS });
     }
   } catch (e) {
-    logError(e);
+    logError("error in login", e);
     authFail(dispatch, e.message);
   }
 };

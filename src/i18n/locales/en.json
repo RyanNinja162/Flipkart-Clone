@@ -88,6 +88,12 @@
     "emptyMessage": "Your cart is empty",
     "checkoutButton": "Go to Checkout"
   },
+  "notification": {
+    "title": "Cart",
+    "emptyMessage": "No notifications yet",
+    "checkoutButton": "Go to Checkout",
+    "emptySubMessage": "Simply Browse, create a wishlist or make a purchase"
+  },
   "cartListItem": {
     "removeItemDialogTitle": "You sure?",
     "removeItemDialogMessage": "Just double-checking you wanted to remove the item"

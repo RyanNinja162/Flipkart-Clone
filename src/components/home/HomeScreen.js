@@ -12,6 +12,7 @@ import FeaturedProducts from './FeaturedProducts';
 import NavigationService from '../../navigation/NavigationService';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
+import TopSelection from './TopSelection';
 
 class HomeScreen extends Component {
   static contextType = ThemeContext;
@@ -90,6 +91,7 @@ class HomeScreen extends Component {
           />
         }>
         <HomeSlider slider={this.props.slider} />
+        <TopSelection />
         {/* {this.renderFeatured()} */}
       </ScrollView>
     );

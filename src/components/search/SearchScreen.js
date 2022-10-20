@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -15,7 +15,7 @@ import { NAVIGATION_SEARCH_PRODUCT_PATH } from '../../navigation/routes';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
 
-class SearchScreen extends Component {
+class NotificationScreen extends Component {
   static contextType = ThemeContext;
 
   static navigationOptions = ({ navigation }) => ({
@@ -32,115 +32,160 @@ class SearchScreen extends Component {
     this.getSearchProducts = _.debounce(this.props.getSearchProducts, 1000);
   }
 
-  onRowPress = product => {
-    this.props.setCurrentProduct({ product });
-    NavigationService.navigate(NAVIGATION_SEARCH_PRODUCT_PATH, {
-      product,
-      title: product.name,
-    });
-  };
+  // onRowPress = product => {
+  //   this.props.setCurrentProduct({ product });
+  //   NavigationService.navigate(NAVIGATION_SEARCH_PRODUCT_PATH, {
+  //     product,
+  //     title: product.name,
+  //   });
+  // };
 
-  onEndReached = () => {
-    const { canLoadMoreContent, loadingMore, products } = this.props;
-    const { sortOrder, priceFilter } = this.props;
+  // onEndReached = () => {
+  //   const { canLoadMoreContent, loadingMore, products } = this.props;
+  //   const { sortOrder, priceFilter } = this.props;
 
-    if (!loadingMore && canLoadMoreContent) {
-      this.props.getSearchProducts(
-        this.state.input,
-        products.length,
-        sortOrder,
-        priceFilter,
-      );
-    }
-  };
+  //   if (!loadingMore && canLoadMoreContent) {
+  //     this.props.getSearchProducts(
+  //       this.state.input,
+  //       products.length,
+  //       sortOrder,
+  //       priceFilter,
+  //     );
+  //   }
+  // };
 
-  updateSearch = input => {
-    this.setState({ input }, () => {
-      this.props.resetFilters();
-      this.getSearchProducts(
-        input,
-        null,
-        this.props.sortOrder,
-        this.props.priceFilter,
-      );
-    });
-  };
+  // updateSearch = input => {
+  //   this.setState({ input }, () => {
+  //     this.props.resetFilters();
+  //     this.getSearchProducts(
+  //       input,
+  //       null,
+  //       this.props.sortOrder,
+  //       this.props.priceFilter,
+  //     );
+  //   });
+  // };
 
-  performSort = sortOrder => {
-    this.props.addFilterData(sortOrder);
-    this.props.getSearchProducts(
-      this.state.input,
-      null,
-      sortOrder,
-      this.props.priceFilter,
-    );
-  };
+  // performSort = sortOrder => {
+  //   this.props.addFilterData(sortOrder);
+  //   this.props.getSearchProducts(
+  //     this.state.input,
+  //     null,
+  //     sortOrder,
+  //     this.props.priceFilter,
+  //   );
+  // };
 
-  renderContent = () => (
-    <ProductList
-      products={this.props.products}
-      navigation={this.props.navigation}
-      onEndReached={this.onEndReached}
-      canLoadMoreContent={this.props.canLoadMoreContent}
-      searchIndicator
-      onRowPress={this.onRowPress}
-      gridColumnsValue={this.props.listTypeGrid}
-      performSort={this.performSort}
-      currencySymbol={this.props.currencySymbol}
-      currencyRate={this.props.currencyRate}
-    />
-  );
+  // renderContent = () => (
+  //   <ProductList
+  //     products={this.props.products}
+  //     navigation={this.props.navigation}
+  //     onEndReached={this.onEndReached}
+  //     canLoadMoreContent={this.props.canLoadMoreContent}
+  //     searchIndicator
+  //     onRowPress={this.onRowPress}
+  //     gridColumnsValue={this.props.listTypeGrid}
+  //     performSort={this.performSort}
+  //     currencySymbol={this.props.currencySymbol}
+  //     currencyRate={this.props.currencyRate}
+  //   />
+  // );
 
-  render() {
+  renderEmptyNotification = () => {
     const theme = this.context;
-    const { input } = this.state;
+    const { navigate } = this.props.navigation;
+    const { containerStyle, totals, buttonTextStyle, shopNow } = styles;
 
     return (
-      <View style={styles.containerStyle(theme)}>
-        <SearchBar
-          placeholder={translate('search.searchPlaceholderText')}
-          onChangeText={this.updateSearch}
-          value={input}
-          containerStyle={styles.searchStyle(theme)}
-          inputStyle={styles.inputStyle(theme)}
-          inputContainerStyle={styles.inputContainerStyle(theme)}
-          showLoading={this.props.loadingMore}
-        />
-        <View style={{ flex: 1 }}>{this.renderContent()}</View>
+      <View style={containerStyle(theme)}>
+        <Text type="heading" style={styles.emptyHeading}>
+          {translate('notification.emptyMessage')}
+        </Text>
+        <Text type="heading" style={styles.emptySubHeading}>
+          {translate('notification.emptySubMessage')}
+        </Text>
+        <TouchableOpacity onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)} style={shopNow(theme)}>
+          <Text type="heading" bold style={buttonTextStyle(theme)}>
+            {translate('common.shopNow')}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
+  };
+
+  renderNotifications = () => {
+    const theme = this.context;
+    const { navigate } = this.props.navigation;
+    const { containerStyle, totals, buttonTextStyle, shopNow } = styles;
+
+    return (
+      <View style={containerStyle(theme)}>
+        <Text>Notifications</Text>
+      </View>
+    );
+  };
+
+
+  render() {
+    if (false) {
+      return this.renderNotifications();
+    }
+    return this.renderEmptyNotification();
   }
+
 }
 
-const styles = {
-  containerStyle: theme => ({
+
+const styles = StyleSheet.create({
+  container: theme => ({
     flex: 1,
     backgroundColor: theme.colors.background,
   }),
-  searchStyle: theme => ({
+  emptyHeading: {
+    fontSize: 16,
+    marginBottom: 10
+  },
+  emptySubHeading: {
+    fontSize: 12,
+    color: "grey",
+    marginHorizontal: "15%",
+    textAlign: "center",
+    marginBottom: 10
+  },
+  containerStyle: theme => ({
     backgroundColor: theme.colors.background,
-    alignSelf: 'center',
-    borderBottomWidth: 0,
-    borderTopWidth: 0,
-    height: theme.dimens.searchBarHeight,
-    width: theme.dimens.WINDOW_WIDTH,
-  }),
-  inputContainerStyle: theme => ({
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.dimens.searchBarBorderRadius,
-  }),
-  inputStyle: theme => ({
-    backgroundColor: theme.colors.surface,
-    color: theme.colors.titleText,
-  }),
-  notFoundTextWrap: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+  }),
+  content: {
+    flex: 1,
   },
-  notFoundText: {
-    textAlign: 'center',
+  totals: theme => ({
+    paddingTop: theme.spacing.small,
+  }),
+  shopNow: theme => ({
+    backgroundColor: theme.colors.secondary,
+    borderRadius: theme.dimens.borderRadius
+  }),
+  totalPriceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-};
+  buttonTextStyle: theme => ({
+    padding: theme.spacing.small,
+    top: 0,
+    color: theme.colors.primary,
+  }),
+  footer: theme => ({
+    padding: theme.spacing.large,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  }),
+  buttonStyle: theme => ({
+    width: theme.dimens.WINDOW_WIDTH * 0.5,
+  }),
+});
 
 const mapStateToProps = ({ search, filters, magento, ui }) => {
   const { sortOrder, priceFilter } = filters;
@@ -172,4 +217,4 @@ export default connect(mapStateToProps, {
   setCurrentProduct,
   resetFilters,
   addFilterData,
-})(SearchScreen);
+})(NotificationScreen);
